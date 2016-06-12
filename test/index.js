@@ -56,3 +56,14 @@ test('require: log module.exports', () => {
 
 	t.equal(JSON.stringify(RV.require('my-module-4')), '{"foo":"barz"}');
 });
+
+test('require: require inside callback', () => {
+	RV.define('my-module-5', (require, exports, module) => {
+		var result = require('my-module-4');
+		result.modified = 1;
+
+		module.exports = result;
+	});
+
+	t.equal(JSON.stringify(RV.require('my-module-5')), '{"foo":"barz","modified":1}');
+});
