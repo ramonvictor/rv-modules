@@ -6,7 +6,11 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "repository": "ramonvictor/rv-modules",
+  "scripts": {
+    "test": "mocha --ui tdd"
+  },
   "dependencies": {
+    "mocha": "^2.4.5"
   },
   "engines": {
     "node": "5.0.0"
