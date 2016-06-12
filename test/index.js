@@ -36,17 +36,16 @@ test('require: log return', () => {
 	t.equal(JSON.stringify(RV.require('my-module-2')), '{"foo":"bar"}');
 });
 
-/*
+
 test('require: log exports', () => {
 	RV.define('my-module-3', (require, exports, module) => {
-		exports = {
+		exports.foo = {
 			foo: 'barz'
 		};
 	});
 
-	t.equal(JSON.stringify(RV.require('my-module-3')), '{"foo":"barz"}');
+	t.equal(JSON.stringify(RV.require('my-module-3')), '{"foo":{"foo":"barz"}}');
 });
-*/
 
 test('require: log module.exports', () => {
 	RV.define('my-module-4', (require, exports, module) => {

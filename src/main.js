@@ -9,34 +9,32 @@ function define(name, callback) {
 		throw new Error('define: callback is undefined or is not a function');
 	}
 
-	var value;
-
 	// module initial value
-	this.__modules[name] = {};
-	this.__modules[name].exports = this.__modules[name];
-
-	// Run callback
-	value = callback(this.require, this.__modules[name].exports, this.__modules[name]);
-
-	// value returned
-	if (typeof value !== 'undefined') {
-		this.__modules[name].exports = value;
-	}
+	this._modules[name] = {
+		callback: callback,
+		exports: {}
+	};
 }
 
 
 // Require
 // ---------
 function require(name) {
+	// Check required argument
 	if (typeof name == 'undefined') {
 		throw new Error('require: missing module name');
 	}
 
-	if (typeof this.__modules[name] == 'undefined') {
+	// Store module in reusable variable
+	var m = this._modules[name];
+
+	// Check if module exists
+	if (typeof m == 'undefined') {
 		throw new Error('require: module `' + name + '` is not defined');
 	}
 
-	return this.__modules[name].exports;
+	// Return exported value
+	return m.callback(this.require, m.exports, m) || m.exports;
 }
 
 
@@ -45,5 +43,5 @@ function require(name) {
 module.exports = {
 	define: define,
 	require: require,
-	__modules: {}
+	_modules: {}
 };
