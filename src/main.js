@@ -9,9 +9,18 @@ function define(name, callback) {
 		throw new Error('define: callback is undefined or is not a function');
 	}
 
-	var value = callback.call(undefined, this.require, this.__modules[name]);
+	var value;
+
+	// module initial value
+	this.__modules[name] = {};
+	this.__modules[name].exports = this.__modules[name];
+
+	// Run callback
+	value = callback(this.require, this.__modules[name].exports, this.__modules[name]);
+
+	// value returned
 	if (typeof value !== 'undefined') {
-		this.__modules[name] = value;
+		this.__modules[name].exports = value;
 	}
 }
 
@@ -24,10 +33,10 @@ function require(name) {
 	}
 
 	if (typeof this.__modules[name] == 'undefined') {
-		throw new Error('require: module ' + name + ' is not defined');
+		throw new Error('require: module `' + name + '` is not defined');
 	}
 
-	return this.__modules[name];
+	return this.__modules[name].exports;
 }
 
 
