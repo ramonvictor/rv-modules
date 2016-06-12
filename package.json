@@ -1,0 +1,20 @@
+{
+  "name": "rv-modules",
+  "author": "@ramonvictor",
+  "description": "",
+  "license": "MIT",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "ramonvictor/rv-modules",
+  "dependencies": {
+  },
+  "engines": {
+    "node": "5.0.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "jshint": "^2.9.2",
+    "gulp-jshint": "^2.0.1",
+    "jshint-stylish": "^2.2.0"
+  }
+}
