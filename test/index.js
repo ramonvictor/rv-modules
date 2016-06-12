@@ -69,6 +69,20 @@ test('require: log module.exports', () => {
 	t.equal(JSON.stringify(RV.require('my-module-4')), '{"foo":"barz"}');
 });
 
+test('require: module.exports overrides exports', () => {
+	RV.define('my-module-7', (require, exports, module) => {
+		exports.foo = {
+			foo: 'barz'
+		};
+
+		module.exports = {
+			barz: 'foo'
+		};
+	});
+
+	t.equal(JSON.stringify(RV.require('my-module-7')), '{"barz":"foo"}');
+});
+
 test('require: require inside callback', () => {
 	RV.define('my-module-5', (require, exports, module) => {
 		var result = require('my-module-4');
