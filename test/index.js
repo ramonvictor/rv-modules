@@ -18,6 +18,18 @@ test('define: callback is invalid', () => {
 	}
 });
 
+test('define: avoid module override', () => {
+	RV.define('my-module-6', (require, exports, module) => {
+		return { foo: 1 };
+	});
+
+	RV.define('my-module-6', (require, exports, module) => {
+		return { foo: 2 };
+	});
+
+	t.equal(JSON.stringify(RV.require('my-module-6')), '{"foo":1}');
+});
+
 test('require: undefined module', () => {
 	try {
 		RV.require('my-module-5');

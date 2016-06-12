@@ -12,7 +12,15 @@
 			throw new Error('define: callback is undefined or is not a function');
 		}
 
-		// module initial value
+		// Read module, if any
+		var m = this._modules[name];
+
+		// Make sure we don't override existent module
+		if (typeof m === 'object' && typeof m.exports !== 'undefined') {
+			return;
+		}
+
+		// Register module object
 		this._modules[name] = {
 			callback: callback,
 			exports: {}
