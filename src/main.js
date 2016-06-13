@@ -1,5 +1,7 @@
 ;(function() {
-  'use strict';
+	'use strict';
+
+	var modules = {};
 
 	// Define
 	// ---------
@@ -13,7 +15,7 @@
 		}
 
 		// Read module, if any
-		var m = this._modules[name];
+		var m = modules[name];
 
 		// Make sure we don't override existent module
 		if (typeof m === 'object' && typeof m.exports !== 'undefined') {
@@ -21,7 +23,7 @@
 		}
 
 		// Register module object
-		this._modules[name] = {
+		modules[name] = {
 			callback: callback,
 			exports: {}
 		};
@@ -37,7 +39,7 @@
 		}
 
 		// Store module in reusable variable
-		var m = this._modules[name];
+		var m = modules[name];
 
 		// Check if module exists
 		if (typeof m === 'undefined') {
@@ -53,8 +55,7 @@
 	// ---------
 	var API = {
 		define: define,
-		require: require,
-		_modules: {}
+		require: require
 	};
 
 	// Export
