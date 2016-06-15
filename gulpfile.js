@@ -1,33 +1,28 @@
-/*******************************************************************************
-1. DEPENDENCIES
-*******************************************************************************/
-
-var gulp = require('gulp');                             // gulp core
-var jshint = require('gulp-jshint');                    // check if js is ok
-var stylish = require('jshint-stylish');                // make errors look good in shell
-
-/*******************************************************************************
-2. FILE DESTINATIONS (RELATIVE TO ASSSETS FOLDER)
-*******************************************************************************/
-
+var gulp = require('gulp');
+var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
 var target = {
-    js_concat_src : [
-        'src/main.js'
-    ],
-    js_dest : 'public/js'
+	js_concat_src: ['src/main.js'],
+	js_dest: 'public/'
 };
 
-
-/*******************************************************************************
-4. JS TASKS
-*******************************************************************************/
-
-// lint my custom js
-gulp.task('js-lint', function() {
-    gulp.src(target.js_concat_src)                        // get the files
-        .pipe(jshint())                                 // lint the files
-        .pipe(jshint.reporter(stylish))                 // present the results in a beautiful way
+gulp.task('js-uglify', function() {
+	gulp.src(target.js_concat_src)
+	.pipe(uglify())
+	.pipe(rename(function(dir, base, ext){
+		var trunc = base.split('.')[0];
+		return trunc + '.min' + ext;
+	}))
+	.pipe(gulp.dest(target.js_dest));
 });
 
 
-gulp.task('default', ['js-lint']);
+gulp.task('js-lint', function() {
+	gulp.src(target.js_concat_src)
+		.pipe(jshint())
+		.pipe(jshint.reporter(stylish));
+});
+
+gulp.task('default', ['js-lint', 'js-uglify']);
