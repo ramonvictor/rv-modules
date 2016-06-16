@@ -2,12 +2,13 @@
 
 Less than 1kb lib that applies require/define concept.
 
-# How to use
+### How to use
 ```js
 // On node
 var rv = require('rv-modules');
-// On the browser
-window.rv;
+// On the browser it's exposed as `window.rv`.
+// So, you can just use:
+rv.require('my-module');
 ```
 
 **Module that returns value**
