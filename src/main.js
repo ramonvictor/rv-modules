@@ -63,6 +63,6 @@
 	if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 		module.exports = API;
 	} else if (typeof window !== 'undefined') {
-		window.RV = API;
+		window.rv = API;
 	}
 }());
